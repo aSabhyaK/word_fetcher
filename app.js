@@ -10,7 +10,7 @@ const express = require('express'),
         // to store all the words and their frequencies, and then sort the 
         // hashmap according to the values and fetch the top n values from there.
 
-        
+        // fetching the data from the given URL
         var options = { 
             method: 'GET',
             url: 'http://terriblytinytales.com/test.txt',
@@ -29,6 +29,7 @@ const express = require('express'),
           var myMap = new Map();
           var value = '';
 
+          // looping over the stripped array
           for(let x of array) {
             value = x.toLowerCase();
 
@@ -39,16 +40,19 @@ const express = require('express'),
                 myMap.set(value, 1);
           }
 
+          // in case the input is more than the number of the unique words in the text
           if(n > myMap.size) {
               res.send({Error: "Value too high, try a lower value."});
               return;
           }
 
+          // sorting the map based on the values
           myMap[Symbol.iterator] = function* () {
             yield* [...this.entries()].sort((a, b) => b[1] - a[1]);
           }
 
           var count = n;
+          // array to store the required value
           var finalStructure = [];
           for(let [key, value] of myMap) {
             if(count == 0)
@@ -58,11 +62,10 @@ const express = require('express'),
             count --;
           }
 
-          //need to see what happens in case there are multiple entries for
-          // with a similar frequency
-          //res.send({message : 'Got a POST request'});
+          // sending the response back
           res.send({data: finalStructure});
         });
       })
+
     app.use(express.static('dist'))
     app.listen(process.env.PORT || 3000, () => console.log('ANGULAR app listening on port 3000!'))
