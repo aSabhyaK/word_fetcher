@@ -1,27 +1,19 @@
-# AngularApp
+# Word Fetcher
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+This application developed using the MEAN stack (not including the MongoDB part as it was not really required as part of the architecture) fetches the N most frequently occuring words in a text corpus, and renders the said information on the screen.
+It can be found hosted over at https://wordfetcher.herokuapp.com/.
 
-## Development server
+# Components
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Angular v5.2.0
+2. Express v4.16.3
+3. Body Parser v1.18.2: parses the complete input stream and exposes the same to the request object.
+, among other dependencies required internally by Angular and its CLI.
 
-## Code scaffolding
+# Source code explanation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The UI is a text field which has been pre- validated to not allow anything other than natural numbers (i.e., the value can't be < 0, can't be a decimal, and no punctuation marks or alphabets are allowed.). Apart from that, in case the input exceeds the maximum number of unique words in the text, the user is prompted to enter a lesser value.
 
-## Build
+In the backend, once the value of the number N is recieved, data is extracted from the said URL (http://terriblytinytales.com/test.txt) and a hashmap is created out of the text, with the words as keys and their respective frequencies as the values. Before that, the entire text is stripped of the special characters as well the whitespaces.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Once the hashmap is created, it is sorted in the reverse order of the frequency, a loop runs over the map to enforce the fetching of strictly N records, a 2 dimensional array created out of the same, and sent back as response to the POST call /api/fetch.
