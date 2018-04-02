@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()" #HomeForm="ngForm">
+  <div class="form-group">
+    <label for="value">Value</label>
+    <input type="number" min="1" class="form-control" id="value"
+           required
+           [(ngModel)]="data.value" (input)="validate()" name="value"
+           #value="ngModel"  style="max-width:200px;">
+    <div [hidden]="value.valid || value.pristine"
+         class="alert alert-danger" style="max-width:200px;">
+      Value is required.
+    </div>
+    <div [hidden]="isNotDecimal" class="alert alert-danger" style="max-width:200px;">
+      Value should not be a Decimal.
+    </div>
+    <div [hidden]="isGreaterThanZero" class="alert alert-danger" style="max-width:200px;">
+        Value should be greater than 0.
+      </div>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!HomeForm.form.valid || isSubmitted || !isNotDecimal || !isGreaterThanZero">Submit</button>
+</form>
+<br/><br/>
+<div *ngIf="TextArray.data" style="margin-top:1rem;">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Frequency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let word of TextArray.data">
+        <td>{{word[0]}}</td>
+        <td>{{word[1]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="TextArray.Error" style="margin-top:1rem; max-width:200px;">
+    <div class="alert alert-danger">
+    {{TextArray.Error}}
+    </div>
+</div>
