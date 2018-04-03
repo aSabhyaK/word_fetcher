@@ -1,13 +1,13 @@
 # Word Fetcher
 
-This application developed using the MEAN stack (not including the MongoDB part as it was not really required as part of the architecture) fetches the N most frequently occuring words in a text corpus, and renders the said information on the screen.
-It can be found hosted over at https://wordfetcher.herokuapp.com/.
+This application fetches and renders the N most frequently occuring words in a text corpus, on the UI. It can be found hosted over at https://wordfetcher.herokuapp.com/.
 
 # Components
 
 1. Angular v5.2.0
 2. Express v4.16.3
-3. Body Parser v1.18.2: parses the complete input stream and exposes the same to the request object.
+3. Nodejs
+4. Body Parser v1.18.2: parses the complete input stream and exposes the same to the request object.
 , among other dependencies required internally by Angular and its CLI.
 
 # Source code explanation
